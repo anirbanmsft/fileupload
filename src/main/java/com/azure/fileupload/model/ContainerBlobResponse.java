@@ -3,7 +3,7 @@ package com.azure.fileupload.model;
 public class ContainerBlobResponse {
 
 	private String accountName;
-	private String accountKey;
+	private String containerSasToken;
 	private String containerName;
 	private String blobEndpoint;
 	private String BlobURL;
@@ -11,7 +11,7 @@ public class ContainerBlobResponse {
 			String blobURL) {
 		super();
 		this.accountName = accountName;
-		this.accountKey = accountKey;
+		this.containerSasToken = accountKey;
 		this.containerName = containerName;
 		this.blobEndpoint = blobEndpoint;
 		BlobURL = blobURL;
@@ -22,11 +22,11 @@ public class ContainerBlobResponse {
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
-	public String getAccountKey() {
-		return accountKey;
+	public String getContainerSasToken() {
+		return containerSasToken;
 	}
-	public void setAccountKey(String accountKey) {
-		this.accountKey = accountKey;
+	public void setContainerSasToken(String containerSasToken) {
+		this.containerSasToken = containerSasToken;
 	}
 	public String getContainerName() {
 		return containerName;
