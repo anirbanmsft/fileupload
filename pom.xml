@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.azure</groupId>
-	<artifactId>fileupload</artifactId>
+	<artifactId>noserverdocker-fileupload</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fileupload</name>
+	<name>noserverdocker-fileupload</name>
 	<description>Demo project for file upload to Azure Blob in Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
