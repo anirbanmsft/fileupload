@@ -28,7 +28,7 @@ You can get Azure [storage account container SAS token](https://docs.microsoft.c
 
 * `az login`
 * `az acr login --name <acrName>`
-* `docker pull hackathonlocal.azurecr.io/anirban/upload-video-to-azure-storage:latest`
+* `docker pull hackathonlocal.azurecr.io/anirban/upload-video-to-azure-storage:1.1.1`
 
 reference: [Individual login with Azure AD](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli)
 
