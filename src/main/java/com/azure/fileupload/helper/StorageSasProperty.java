@@ -5,24 +5,24 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "azure")
-public class StorageProperty {
-
-	private String accountName;
-	private String accountKey;
+public class StorageSasProperty {
+	
+	private String storageAccountName;
+	private String containerSasToken;
 	private String containerName;
 	private String blobEndpoint;
-	
-	public String getAccountName() {
-		return accountName;
+
+	public String getStorageAccountName() {
+		return storageAccountName;
 	}
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
+	public void setStorageAccountName(String storageAccountName) {
+		this.storageAccountName = storageAccountName;
 	}
-	public String getAccountKey() {
-		return accountKey;
+	public String getContainerSasToken() {
+		return containerSasToken;
 	}
-	public void setAccountKey(String accountKey) {
-		this.accountKey = accountKey;
+	public void setContainerSasToken(String containerSasToken) {
+		this.containerSasToken = containerSasToken;
 	}
 	public String getContainerName() {
 		return containerName;

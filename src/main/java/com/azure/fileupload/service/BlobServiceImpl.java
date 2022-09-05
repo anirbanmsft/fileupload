@@ -14,18 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.azure.core.credential.AzureSasCredential;
 import com.azure.fileupload.helper.HashCreator;
-import com.azure.fileupload.helper.StorageProperty;
+import com.azure.fileupload.helper.StorageSasProperty;
 import com.azure.fileupload.model.ContainerBlobResponse;
 import com.azure.storage.blob.BlobClient;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobContainerClientBuilder;
+import com.azure.storage.blob.BlobClientBuilder;
 
 @Service
 public class BlobServiceImpl implements BlobService {
-    
+ 
     @Autowired
-    private StorageProperty storageProperty;
+    private StorageSasProperty storageSasProperty;
     
     @Autowired
 	private ConverterService mp4ToAviConverterServiceImpl;
@@ -38,27 +38,22 @@ public class BlobServiceImpl implements BlobService {
     	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     	String blobname = HashCreator.getFileChecksum(md5Digest, timeStamp + file.getOriginalFilename());
     	
-    	logger.info("azure.storage.account-name: " + storageProperty.getAccountName());
-    	logger.info("azure.storage.container-name: " + storageProperty.getContainerName());
     	logger.info("azure.storage.blob-name: " + blobname);
-        
-    	String connectionString = "AccountName=" +  storageProperty.getAccountName() +
-    					";AccountKey=" + storageProperty.getAccountKey() +
-    					";BlobEndpoint=" + storageProperty.getBlobEndpoint() +
-    					";DefaultEndpointsProtocol=https;";
     	
         BlobClient blob;
 		try {
-			
-			BlobContainerClient container = new BlobContainerClientBuilder()
-					.connectionString(connectionString)
-					.containerName(storageProperty.getContainerName())
+			String blobEndpoint = String.format("https://%s.blob.core.windows.net/%s/%s", 
+					storageSasProperty.getStorageAccountName(), 
+					storageSasProperty.getContainerName(),
+					blobname);
+			logger.info("blobEndpoint name: " + blobEndpoint);
+			blob = new BlobClientBuilder()
+					.endpoint(blobEndpoint)
+					.credential(new AzureSasCredential(storageSasProperty.getContainerSasToken()))
 					.buildClient();
-			logger.info("container.getBlobContainerName: " + container.getBlobContainerName());
-			logger.info("container.getBlobContainerUrl: " + container.getBlobContainerUrl());
+
 			logger.info("MultipartFile name: " + file.getOriginalFilename());
 			logger.info("MultipartFile Extension: " + FilenameUtils.getExtension(file.getOriginalFilename()));
-			blob = container.getBlobClient(blobname);
 			if(FilenameUtils.getExtension(file.getOriginalFilename()).equalsIgnoreCase("mp4")) {
 				File aviFile = mp4ToAviConverterServiceImpl.convert(file, blobname);
 				logger.info("AVI File name: " + aviFile.getName());
@@ -71,10 +66,10 @@ public class BlobServiceImpl implements BlobService {
 			logger.error(e);
 			throw e;
 		}
-		ContainerBlobResponse response = new ContainerBlobResponse(storageProperty.getAccountName(), 
-				storageProperty.getAccountKey(), 
-				storageProperty.getContainerName(), 
-				storageProperty.getBlobEndpoint(), 
+		ContainerBlobResponse response = new ContainerBlobResponse(storageSasProperty.getStorageAccountName(), 
+				storageSasProperty.getContainerSasToken(), 
+				storageSasProperty.getContainerName(), 
+				storageSasProperty.getBlobEndpoint(), 
 				blob.getBlobUrl());
 		logger.info("ContainerBlobResponse" + response);
         return response;
