@@ -1,0 +1,8 @@
+# exclude everything .settings and target
+.settings/*
+target/*
+.classpath
+.project
+mvnw
+mvnw.cmd
+HELP.md
