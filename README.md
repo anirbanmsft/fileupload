@@ -45,7 +45,7 @@ Date: "Mon, 05 Sep 2022 13:05:22 GMT"
 
     {
         "accountName": "<accountName>",
-        "accountKey": "<accountKey>",
+        "containerSasToken": "<containerSasToken>",
         "containerName": "<containerName>",
         "blobEndpoint": "<blobEndpoint>",
         "blobURL": "<blobURL>"
