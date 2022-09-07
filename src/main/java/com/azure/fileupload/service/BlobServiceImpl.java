@@ -67,9 +67,7 @@ public class BlobServiceImpl implements BlobService {
 			throw e;
 		}
 		ContainerBlobResponse response = new ContainerBlobResponse(storageSasProperty.getStorageAccountName(), 
-				storageSasProperty.getContainerSasToken(), 
 				storageSasProperty.getContainerName(), 
-				storageSasProperty.getBlobEndpoint(), 
 				blob.getBlobUrl());
 		logger.info("ContainerBlobResponse" + response);
         return response;
