@@ -32,6 +32,10 @@ You can get Azure [storage account container SAS token](https://docs.microsoft.c
 
 reference: [Individual login with Azure AD](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli)
 
+## Download the docker image from dockerhub
+
+Please refer to [dockerhub repository](https://hub.docker.com/repository/docker/anirbanbh/noserverdocker-fileupload).
+
 ## REST API
 The REST API to upload avi file to Azure Storage Blob.
 
