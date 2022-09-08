@@ -36,7 +36,7 @@ public class BlobServiceImpl implements BlobService {
 	public ContainerBlobResponse writeBlobFile(MultipartFile file) throws Exception {
 		MessageDigest md5Digest = MessageDigest.getInstance("MD5");
     	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    	String blobname = HashCreator.getFileChecksum(md5Digest, timeStamp + file.getOriginalFilename());
+    	String blobname = HashCreator.getFileChecksum(md5Digest, timeStamp + file.getOriginalFilename()) + ".avi";
     	
     	logger.info("azure.storage.blob-name: " + blobname);
     	
@@ -59,6 +59,7 @@ public class BlobServiceImpl implements BlobService {
 				logger.info("AVI File name: " + aviFile.getName());
 				logger.info("AVI File path: " + aviFile.toPath());
 				blob.upload(FileUtils.openInputStream(aviFile), Files.size(aviFile.toPath()), true);
+				aviFile.delete();
 			} else {
 				blob.upload(file.getInputStream(), file.getSize(), true);
 			}

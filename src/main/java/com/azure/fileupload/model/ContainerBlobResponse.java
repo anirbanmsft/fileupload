@@ -17,6 +17,9 @@ public class ContainerBlobResponse {
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
+	public String getContainerName() {
+		return containerName;
+	}
 	public void setContainerName(String containerName) {
 		this.containerName = containerName;
 	}

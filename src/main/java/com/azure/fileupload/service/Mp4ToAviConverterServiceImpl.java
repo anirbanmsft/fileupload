@@ -21,7 +21,7 @@ public class Mp4ToAviConverterServiceImpl implements ConverterService {
 	public File convert(MultipartFile file, String blobname) throws Exception {
 		
 		File sourceFile = new File("/tmp/" + file.getOriginalFilename());
-		File targetFile = new File(blobname + ".avi");
+		File targetFile = new File(blobname);
 		
 		AudioAttributes audio = new AudioAttributes();
         audio.setCodec("aac");
@@ -37,6 +37,7 @@ public class Mp4ToAviConverterServiceImpl implements ConverterService {
         	file.transferTo(sourceFile);
             Encoder encoder = new Encoder();
             encoder.encode(new MultimediaObject(sourceFile), targetFile, attrs);
+            sourceFile.delete();
         } catch (Exception e) {
         	logger.error(e);
 			throw e;
