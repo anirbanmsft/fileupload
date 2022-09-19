@@ -45,6 +45,7 @@ The REST API to upload avi file to Azure Storage Blob.
 Response
 HTTP/1.1 200
 Content-Type: "application/json"
+Access-Control-Allow-Origin: *
 Date: "Mon, 05 Sep 2022 13:05:22 GMT"
 
     {
