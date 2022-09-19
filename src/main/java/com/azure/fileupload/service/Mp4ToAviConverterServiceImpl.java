@@ -20,9 +20,8 @@ public class Mp4ToAviConverterServiceImpl implements ConverterService {
 	@Override
 	public File convert(MultipartFile file, String blobname) throws Exception {
 		
-		File sourceFile = new File("/tmp/" + file.getOriginalFilename());
+		File sourceFile = new File(System.getProperty("java.io.tmpdir") + file.getOriginalFilename());
 		File targetFile = new File(blobname);
-		
 		AudioAttributes audio = new AudioAttributes();
         audio.setCodec("aac");
         audio.setBitRate(64000);
