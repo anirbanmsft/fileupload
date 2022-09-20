@@ -42,7 +42,7 @@ public class BlobServiceImpl implements BlobService {
 
 		MessageDigest md5Digest = MessageDigest.getInstance("MD5");
     	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    	String blobname = HashCreator.getFileChecksum(md5Digest, timeStamp + file.getOriginalFilename()) + ".avi";
+    	String blobname = HashCreator.getFileChecksum(md5Digest, timeStamp + file.getOriginalFilename()) + ".mp4";
     	
     	logger.info("azure.storage.blob-name: " + blobname);
     	

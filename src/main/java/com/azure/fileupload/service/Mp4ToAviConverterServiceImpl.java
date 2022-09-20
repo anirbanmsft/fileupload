@@ -31,7 +31,8 @@ public class Mp4ToAviConverterServiceImpl implements ConverterService {
         EncodingAttributes attrs = new EncodingAttributes();
         attrs.setInputFormat("mp4");
         attrs.setAudioAttributes(audio);
-        
+        attrs.setOutputFormat("mp4");
+
         try {
         	file.transferTo(sourceFile);
             Encoder encoder = new Encoder();
