@@ -1,16 +1,17 @@
 package com.azure.fileupload.helper;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "azure")
+@PropertySource("classpath:access.properties")
 public class StorageSasProperty {
 	
 	private String storageAccountName;
 	private String containerSasToken;
 	private String containerName;
-	private String blobEndpoint;
 
 	public String getStorageAccountName() {
 		return storageAccountName;
@@ -29,11 +30,5 @@ public class StorageSasProperty {
 	}
 	public void setContainerName(String containerName) {
 		this.containerName = containerName;
-	}
-	public String getBlobEndpoint() {
-		return blobEndpoint;
-	}
-	public void setBlobEndpoint(String blobEndpoint) {
-		this.blobEndpoint = blobEndpoint;
 	}
 }

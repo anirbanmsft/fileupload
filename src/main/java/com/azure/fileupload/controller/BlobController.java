@@ -3,6 +3,7 @@ package com.azure.fileupload.controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,11 @@ public class BlobController {
 				logger.error("You must select the a file for uploading");
 				throw new RuntimeException("You must select the a file for uploading");
 			}
-			return blobService.writeBlobFile(file);
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.set("Access-Control-Allow-Origin", "*");
+			ResponseEntity<ContainerBlobResponse> entityResponse = new ResponseEntity<>(blobService.writeBlobFile(file), responseHeaders, HttpStatus.OK);
+
+	        return entityResponse;
 		}
 		catch(Exception e) {
 			logger.error(e, e.getCause());

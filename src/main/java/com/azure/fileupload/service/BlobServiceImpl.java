@@ -11,9 +11,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,9 +33,8 @@ public class BlobServiceImpl implements BlobService {
     Logger logger = LogManager.getLogger(BlobServiceImpl.class);
 
 	@Override
-	public ResponseEntity<ContainerBlobResponse> writeBlobFile(MultipartFile file) throws Exception {
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("Access-Control-Allow-Origin", "*");
+	public ContainerBlobResponse writeBlobFile(MultipartFile file) throws Exception {
+		
 
 		MessageDigest md5Digest = MessageDigest.getInstance("MD5");
     	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -77,10 +73,7 @@ public class BlobServiceImpl implements BlobService {
 				storageSasProperty.getContainerName(), 
 				blob.getBlobUrl());
 		logger.info("ContainerBlobResponse" + response);
-
-		ResponseEntity entityResponse = new ResponseEntity(response, responseHeaders, HttpStatus.OK);
-
-        return entityResponse;
+        return response;
 	}
 
 }
