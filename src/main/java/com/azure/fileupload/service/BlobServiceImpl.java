@@ -38,7 +38,7 @@ public class BlobServiceImpl implements BlobService {
 
 		MessageDigest md5Digest = MessageDigest.getInstance("MD5");
     	String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    	String blobname = HashCreator.getFileChecksum(md5Digest, timeStamp + file.getOriginalFilename()) + ".avi";
+    	String blobname = HashCreator.getFileChecksum(md5Digest, timeStamp + file.getOriginalFilename()) + ".mp4";
     	
     	logger.info("azure.storage.blob-name: " + blobname);
     	
@@ -58,8 +58,8 @@ public class BlobServiceImpl implements BlobService {
 			logger.info("MultipartFile Extension: " + FilenameUtils.getExtension(file.getOriginalFilename()));
 			if(FilenameUtils.getExtension(file.getOriginalFilename()).equalsIgnoreCase("mp4")) {
 				File aviFile = mp4ToAviConverterServiceImpl.convert(file, blobname);
-				logger.info("AVI File name: " + aviFile.getName());
-				logger.info("AVI File path: " + aviFile.toPath());
+				logger.info("MP4 audio File name: " + aviFile.getName());
+				logger.info("MP4 audio File path: " + aviFile.toPath());
 				blob.upload(FileUtils.openInputStream(aviFile), Files.size(aviFile.toPath()), true);
 				aviFile.delete();
 			} else {
